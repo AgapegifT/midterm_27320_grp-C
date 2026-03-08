@@ -1,0 +1,248 @@
+{
+  "info": {
+    "name": "MediConnect API",
+    "_postman_id": "mediconnect-api-collection",
+    "description": "Full API collection for the MediConnect Spring Boot project. Covers Users, Pharmacies, Medicines, and Prescriptions endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Users",
+      "description": "Endpoints for user registration and management.",
+      "item": [
+        {
+          "name": "Register User (PATIENT)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"john_patient\",\n  \"password\": \"pass123\",\n  \"role\": \"PATIENT\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Register a new user. Role can be PATIENT, DOCTOR, PHARMACY, or ADMIN. Defaults to PATIENT if not provided."
+          }
+        },
+        {
+          "name": "Register User (DOCTOR)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"dr_smith\",\n  \"password\": \"docpass\",\n  \"role\": \"DOCTOR\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Register a new doctor user."
+          }
+        },
+        {
+          "name": "Register User (ADMIN)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin_user\",\n  \"password\": \"adminpass\",\n  \"role\": \"ADMIN\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Register a new admin user."
+          }
+        },
+        {
+          "name": "List All Users (Admin Only)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "X-Role", "value": "ADMIN" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users"]
+            },
+            "description": "Returns all registered users. Requires X-Role: ADMIN header. Returns 403 if role is missing or wrong."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Pharmacies",
+      "description": "Endpoints for pharmacy registration and management.",
+      "item": [
+        {
+          "name": "Register Pharmacy",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/pharmacies",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pharmacies"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"HealthPlus Pharmacy\",\n  \"email\": \"contact@healthplus.rw\",\n  \"phoneNumber\": \"0788123456\",\n  \"licenseNumber\": \"LIC-123\",\n  \"location\": {\n    \"province\": \"Kigali\",\n    \"provinceCode\": \"01\",\n    \"district\": \"Gasabo\",\n    \"sector\": \"Kimironko\",\n    \"latitude\": 1.9441,\n    \"longitude\": 30.0619\n  },\n  \"profile\": {\n    \"firstName\": \"Owner\",\n    \"lastName\": \"Pharmacy\",\n    \"email\": \"owner@healthplus.rw\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Register a new pharmacy. Anyone can call this endpoint."
+          }
+        },
+        {
+          "name": "List All Pharmacies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/pharmacies",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pharmacies"]
+            },
+            "description": "Returns a list of all registered pharmacies including their stock."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Medicines",
+      "description": "Endpoints for medicine management.",
+      "item": [
+        {
+          "name": "Add Medicine (Admin Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Role", "value": "ADMIN" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/medicines",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medicines"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"genericName\": \"Paracetamol\",\n  \"brandName\": \"Panadol\",\n  \"description\": \"Pain reliever and fever reducer\",\n  \"dosageForm\": \"tablet\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Add a new medicine to the global list. Requires X-Role: ADMIN header."
+          }
+        },
+        {
+          "name": "List All Medicines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/medicines",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "medicines"]
+            },
+            "description": "Returns all medicines in the system. No authentication required."
+          }
+        },
+        {
+          "name": "Update Pharmacy Stock (Pharmacy Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "X-Role", "value": "PHARMACY" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/pharmacies/1/medicines",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "pharmacies", "1", "medicines"]
+            },
+            "description": "Update or add stock for a medicine in a specific pharmacy. Replace '1' in the URL with the actual pharmacy ID. Provide JSON body with {\"medicine\":{\"id\":1}, \"stockQuantity\":100, \"price\":\"500.00\", \"reorderLevel\":20, \"status\":\"ACTIVE\"}. Requires X-Role: PHARMACY header."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Prescriptions",
+      "description": "Endpoints for prescription creation and lookup.",
+      "item": [
+        {
+          "name": "Create Prescription (Doctor Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "X-Role", "value": "DOCTOR" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/prescriptions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "prescriptions"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"doctorName\": \"Dr. Smith\",\n  \"patientName\": \"John Doe\",\n  \"medication\": \"Paracetamol 500mg\",\n  \"notes\": \"Take twice daily after meals\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Create a new prescription. Requires X-Role: DOCTOR header. Returns 403 if role is missing or wrong."
+          }
+        },
+        {
+          "name": "Get Prescription by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/prescriptions/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "prescriptions", "1"]
+            },
+            "description": "Retrieve a single prescription by its ID. Replace '1' with the actual prescription ID. Returns 404 if not found."
+          }
+        },
+        {
+          "name": "Search Prescriptions by Patient Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/prescriptions/search?patientName=John Doe",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "prescriptions", "search"],
+              "query": [
+                { "key": "patientName", "value": "John Doe" }
+              ]
+            },
+            "description": "Search all prescriptions by patient name (case-insensitive). Change the patientName query parameter to match the patient you registered."
+          }
+        }
+      ]
+    }
+  ]
+}
