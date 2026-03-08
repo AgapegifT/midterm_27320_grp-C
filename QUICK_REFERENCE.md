@@ -281,7 +281,7 @@ stock (id, medicine_id FK, quantity) -- Legacy
 
 ---
 
-## How to Explain to Your Lecturer
+## How The system is Built
 
 ### For REQUIREMENT 1 (ERD):
 "Our system has 7 main tables representing a normalized database:
@@ -354,18 +354,3 @@ A: Efficiency. existsBy() generates COUNT(*) > 0 query, faster than loading full
 A: Two separate repository methods: findByLocationProvince(name) and findByLocationProvinceCode(code). Both query embedded columns with NO JOIN needed.
 
 ---
-
-## Grade Breakdown
-
-- ERD (3 marks): Follow ARCHITECTURE_AND_DESIGN.md
-- Location (2 marks): Verify H2 schema shows location_* columns
-- Pagination (5 marks): Test /api/medicines with page/size/sort parameters
-- Many-to-Many (3 marks): Test POST and GET /api/pharmacies/{id}/medicines
-- One-to-Many (2 marks): Test GET /api/prescriptions/doctor/{id}
-- One-to-One (2 marks): Test GET /api/users/{id} with profile
-- existsBy() (2 marks): Test duplicate prevention
-- Province Search (4 marks): Test both name and code parameters
-- Viva (7 marks): Explain concepts from this reference
-
-**Total: 30 marks possible** ✅
-
