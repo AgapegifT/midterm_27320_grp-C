@@ -1,20 +1,42 @@
 # MediConnect RW
 
-A simple RESTful backend for prescription verification and pharmacy stock tracking.
+MediConnect is a Java Spring Boot application designed to streamline the management of medicines, pharmacies, prescriptions, and users. It provides a robust backend for healthcare-related operations, supporting CRUD operations, authentication, and more.
 
 ## Features
 
-- Role-based endpoints (admin, doctor, pharmacy, patient) using header `X-Role`
-- H2 in-memory database; no setup required
-- Entities: User, Prescription, Medicine, Pharmacy, Stock
+User registration, authentication, and role-based access
+Medicine and pharmacy management
+Prescription creation and tracking
+Stock and inventory management
+RESTful API endpoints
+Secure configuration with Spring Security
 
-## Running
+## Project Structure
+src/
+  main/
+    java/com/example/mediconnect/
+      controller/      # REST controllers for API endpoints
+      model/           # Entity classes (Medicine, Pharmacy, etc.)
+      repository/      # Spring Data JPA repositories
+      SecurityConfig.java
+      DataInitializer.java
+      MediConnectApplication.java
+    resources/
+      application.properties
+  test/
+    java/com/example/mediconnect/
+      MediConnectApplicationTests.java
+## The server will start at http://localhost:8080.
 
-1. Install Java 17 and Maven on your machine.
-2. Open a terminal in `mediconnect` directory.
-3. Run `mvn spring-boot:run`.
-4. The API will be available at `http://localhost:8080`.
-5. H2 console available at `http://localhost:8080/h2-console` (jdbc url `jdbc:h2:mem:testdb`).
+Example API Usage
+List all medicines:
+GET /api/medicines
+Add a new pharmacy:
+POST /api/pharmacies
+Register a user:
+POST /api/users/register
+Authenticate:
+POST /api/auth/login
 
 ## Sample API calls (use Postman or curl)
 
