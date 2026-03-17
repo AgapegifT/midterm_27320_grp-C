@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediConnect RW — Entity Relationship Diagram</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0e1a;
+      --surface: #111827;
+      --border: #1e2d45;
+      --accent: #0ea5e9;
+      --accent2: #6366f1;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --green: #10b981;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Sans', sans-serif;
+      min-height: 100vh;
+      padding: 40px 24px;
+    }
+    header { text-align: center; margin-bottom: 40px; }
+    .badge {
+      display: inline-block;
+      background: rgba(14,165,233,0.1);
+      border: 1px solid rgba(14,165,233,0.3);
+      color: var(--accent);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+    h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .subtitle { color: var(--muted); font-size: 14px; }
+    .meta {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .meta-item { font-size: 12px; font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
+    .meta-item span { color: var(--accent); }
+    .erd-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 1200px;
+      margin: 0 auto 32px;
+      overflow-x: auto;
+    }
+    #erd svg { width: 100%; height: auto; min-height: 600px; }
+    .legend {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .legend-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .legend-title { font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .legend-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+    footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">ERD — DATABASE SCHEMA</div>
+    <h1>MediConnect RW</h1>
+    <p class="subtitle">Smart Pharmacy & Prescription Verification System</p>
+    <div class="meta">
+      <span class="meta-item">Student: <span>Agape Gift</span></span>
+      <span class="meta-item">ID: <span>27320</span></span>
+      <span class="meta-item">Group: <span>C</span></span>
+      <span class="meta-item">Tables: <span>6</span></span>
+      <span class="meta-item">Framework: <span>Spring Boot 3.2.0</span></span>
+      <span class="meta-item">DB: <span>PostgreSQL 17</span></span>
+    </div>
+  </header>
+  <div class="erd-container"><div id="erd"></div></div>
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#0ea5e9"></div>
+      <div><div class="legend-title">Location</div><div class="legend-desc">Self-referencing hierarchy: Province → District → Sector</div></div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#10b981"></div>
+      <div><div class="legend-title">Patient & Doctor</div><div class="legend-desc">Many-to-One with Location. One-to-Many with Prescription</div></div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#6366f1"></div>
+      <div><div class="legend-title">Prescription</div><div class="legend-desc">Links Patient + Doctor. Owner of Many-to-Many with Medication</div></div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#f59e0b"></div>
+      <div><div class="legend-title">Medication</div><div class="legend-desc">Linked via prescription_medications join table</div></div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background:#ec4899"></div>
+      <div><div class="legend-title">prescription_medications</div><div class="legend-desc">Auto-created join table for Many-to-Many relationship</div></div>
+    </div>
+  </div>
+  <footer>AUCA Mid-Term Assessment 2026 &nbsp;·&nbsp; agapegift223@gmail.com &nbsp;·&nbsp; github.com/AgapegifT</footer>
+  <script>
+    mermaid.initialize({ startOnLoad: false, theme: 'dark', themeVariables: { fontSize: '13px', fontFamily: '"IBM Plex Sans", sans-serif', lineColor: '#378ADD', textColor: '#e2e8f0', primaryColor: '#1e3a5f', primaryTextColor: '#B5D4F4', primaryBorderColor: '#378ADD', secondaryColor: '#1a3a2a', tertiaryColor: '#2a1a3a', background: '#111827', mainBkg: '#111827', nodeBorder: '#378ADD' }, er: { diagramPadding: 30, layoutDirection: 'TB', minEntityWidth: 100, minEntityHeight: 75, entityPadding: 15 } });
+    const diagram = `erDiagram
+      LOCATION { bigint id PK string name string code string locationType bigint parent_id FK }
+      PATIENT { bigint id PK string firstName string lastName string email string phoneNumber string nationalId date dateOfBirth bigint location_id FK }
+      DOCTOR { bigint id PK string firstName string lastName string email string licenseNumber string specialization bigint location_id FK }
+      MEDICATION { bigint id PK string name string code string dosageForm string strength string manufacturer }
+      PRESCRIPTION { bigint id PK string prescriptionNumber date issueDate date expiryDate string diagnosis string notes bigint patient_id FK bigint doctor_id FK }
+      PRESCRIPTION_MEDICATIONS { bigint prescription_id FK bigint medication_id FK }
+      LOCATION ||--o{ LOCATION : "parent of" LOCATION ||--o{ PATIENT : "lives in" LOCATION ||--o{ DOCTOR : "works in" PATIENT ||--o{ PRESCRIPTION : "has" DOCTOR ||--o{ PRESCRIPTION : "writes" PRESCRIPTION ||--o{ PRESCRIPTION_MEDICATIONS : "contains" MEDICATION ||--o{ PRESCRIPTION_MEDICATIONS : "included in" `;
+    mermaid.render('erd-svg', diagram).then(({ svg }) => {
+      document.getElementById('erd').innerHTML = svg;
+    });
+  </script>
+</body>
+</html>

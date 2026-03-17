@@ -41,6 +41,18 @@ java -jar target/mediconnect-1.0.0.jar
 
 **API Base URL:** `http://localhost:8080/api`
 
+## 🗄️ Database Schema
+
+View the interactive ERD: **[ERD.html](docs/ERD.html)**
+
+```
+LOCATION ───< PATIENT      LOCATION ───< DOCTOR
+    │                         │
+    └─────────────────────────┼───────< PRESCRIPTION >───────< MEDICATION
+                              │              │
+                              └──────────────┴─ prescription_medications
+```
+
 ## 📡 API Endpoints
 
 | Resource | Endpoints |
@@ -57,10 +69,11 @@ java -jar target/mediconnect-1.0.0.jar
 mediconnect/
 ├── src/main/java/auca/ac/rw/mediconnect/
 │   ├── controller/    # REST APIs
-│   ├── model/        # JPA Entities
+│   ├── model/         # JPA Entities
 │   ├── repository/   # Data Access
 │   └── service/      # Business Logic
 ├── assets/images/     # Screenshots
+├── docs/ERD.html     # Interactive ERD
 ├── pom.xml
 └── mvnw
 ```
@@ -90,7 +103,8 @@ server.port=8080
 ## 👤 Author
 
 **Group C** - Midterm Project  
-African University of Science and Technology (AUST) - Rwanda
+African University of Science and Technology (AUST) - Rwanda  
+📧 agapegift223@gmail.com
 
 ---
 
